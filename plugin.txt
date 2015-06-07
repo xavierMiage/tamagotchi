@@ -1,0 +1,14 @@
+#interfaces.ILoad = plugins.LoadData
+#interfaces.INourrir = plugins.Nourrir
+#interfaces.ILaver = plugins.Laver
+#interfaces.INew = plugins.NewGame
+#interfaces.ISave = plugins.Save
+#Nom choisi=Classe du plugin;Chargement au lancement;Interface du plugin
+JeuTamagotchi=plugins.Appli;needed
+JeuTamagotchi.need=interfaces.IProducer
+NewGame=plugins.NewGame;interfaces.IProducer
+LoadUI=plugins.LoadUI;interfaces.IProducer
+LoadConfig=plugins.LoadConfig;interfaces.IProducer
+Tamagotchi=plugins.Tamagotchi;interfaces.ITamagotchi
+Soccuper=plugins.Soccuper;interfaces.IAction
+Error=plugins.ErrorPlug;interfaces.IError

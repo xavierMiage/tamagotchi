@@ -1,0 +1,2 @@
+Nourrir=Faim;+25
+Laver=interfaces.ILaver
