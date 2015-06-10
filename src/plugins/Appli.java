@@ -18,7 +18,7 @@ public class Appli {
 		} catch (Exception e) {
 			System.out.println("Erreur lors du chargement de la configuration.");
 		}
-	}
+	};
 
 	public void soccuper(String action) {
 		Soccuper soccuper = (Soccuper) Platform.getInstance().getPlugin("Soccuper");
