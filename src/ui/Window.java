@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
 import javax.swing.JMenuItem;
@@ -51,6 +53,7 @@ public class Window extends JFrame {
 		eMenuItemLoad.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
+            	// TODO : Je ne sais pas si on a le droit d'appeler le plugin appli à partir d'ici
                 Platform.getInstance().getPlugin("LoadTamagotchi");
             }
         });
@@ -63,7 +66,7 @@ public class Window extends JFrame {
         eMenuItemSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                Platform.getInstance().getPlugin("SaveTamagotchi");
+				((Appli)Platform.getInstance().getPlugin("JeuTamagotchi")).save();
             }
         });
 

@@ -17,7 +17,7 @@ public class ErrorDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public ErrorDialog(String msg) {
-		setBounds(100, 100, 450, 100);
+		setBounds(100, 100, 700, 100);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

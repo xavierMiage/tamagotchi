@@ -1,3 +1,9 @@
-#Tamagochi
-#Tue Jun 02 13:52:50 CEST 2015
-Ecriture=OK
+#Jeux tamagotchi
+#Thu Jun 11 20:28:05 CEST 2015
+faim=40
+nom=Test
+espece=1
+sexe=true
+content=true
+propre=70
+ennui=0

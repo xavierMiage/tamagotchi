@@ -4,13 +4,13 @@ import interfaces.ITamagotchi;
 
 public class Tamagotchi implements ITamagotchi {
 
-	private boolean content;
+	private boolean content = true;
 	private int faim = 40;
-	private int propre;
-	private int ennui;
-	private String nom;
-	private boolean sexe;
-	private int espece;
+	private int propre = 70;
+	private int ennui = 0;
+	private String nom = "Test";
+	private boolean sexe = true;
+	private int espece = 1;
 	
 	/* (non-Javadoc)
 	 * @see plugins.ITamagochi#isContent()

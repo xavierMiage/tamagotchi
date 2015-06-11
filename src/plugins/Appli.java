@@ -1,6 +1,14 @@
 package plugins;
 
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import core.NombreNonValideException;
@@ -25,25 +33,53 @@ public class Appli {
 		Tamagotchi tama = (Tamagotchi) Platform.getInstance().getPlugin("Tamagotchi");
 		try {
 			soccuper.soccuper(action, tama);
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorPlug error = (ErrorPlug) Platform.getInstance().getPlugin("Error");
+			error.showError(e.getMessage());
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorPlug error = (ErrorPlug) Platform.getInstance().getPlugin("Error");
+			error.showError(e.getMessage());
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorPlug error = (ErrorPlug) Platform.getInstance().getPlugin("Error");
+			error.showError(e.getMessage());
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NombreNonValideException e) {
-			// TODO Auto-generated catch block
+			ErrorPlug error = (ErrorPlug) Platform.getInstance().getPlugin("Error");
+			error.showError(e.getMessage());
+		} catch (NombreNonValideException e ) {
+			ErrorPlug error = (ErrorPlug) Platform.getInstance().getPlugin("Error");
+			error.showError(e.getMessage());
+		} catch (NoSuchMethodException e) {
 			ErrorPlug error = (ErrorPlug) Platform.getInstance().getPlugin("Error");
 			error.showError(e.getMessage());
 		}
+	}
+	
+	public void save(){
+		Tamagotchi tama = (Tamagotchi) Platform.getInstance().getPlugin("Tamagotchi");
+		
+		Map<String, Object> objectAsMap = new HashMap<String, Object>();
+	    BeanInfo info;
+		try {
+			info = Introspector.getBeanInfo(tama.getClass());
+			for (PropertyDescriptor pd : info.getPropertyDescriptors()) {
+		        Method reader = pd.getReadMethod();
+		        if (reader != null && !pd.getName().equals("class"))
+		            objectAsMap.put(pd.getName(),reader.invoke(tama));
+		    }
+		    
+		    System.out.println(objectAsMap.toString());
+		    
+		    Properties properties = new Properties();
+
+		    for (Entry<String, Object> entry : objectAsMap.entrySet()) {
+		        properties.put(entry.getKey(), entry.getValue().toString());
+		    }
+		    
+		    ((SaveGame)Platform.getInstance().getPlugin("SaveGame")).exportData(properties);
+		} catch (Exception e) {
+			ErrorPlug error = (ErrorPlug) Platform.getInstance().getPlugin("Error");
+			error.showError(e.getMessage());
+		}
+	    
 	}
 }

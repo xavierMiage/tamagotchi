@@ -1,14 +1,10 @@
 package core;
 
-import java.awt.EventQueue;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
 
 import plugins.ErrorPlug;
-import ui.Window;
 
 /*
  * Classe gérant les plugins
@@ -33,50 +29,36 @@ public class Platform {
 		}
 		return INSTANCE;
 	}
-	// Constructeur
-	/*public Platform() {
-		try {
-			// Chargement de la configuration
-			LoadData conf = (LoadData) this.getPlugin(ILoad.class);
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-						// Création de la vue
-						Window frame = new Window(conf.doSomething("config.txt"), Platform.this);
-						frame.setVisible(true);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}*/
 	
 	public Properties getPlugins() {
 		
 		// Lire fichier de config
-		Properties config = new Properties();
 		try {
 			plugins.load(new FileReader("plugin.txt"));
+			if(!plugins.containsKey("Error")) {
+				plugins.put("Error", "plugins.ErrorPlug;interfaces.IError");
+			}
+			
 			Class<?> clazz;
 			Object o;
-			String tempKey;
-			String tempClass;
 			for(Object key : plugins.keySet()) {
 				if(plugins.get(key).toString().contains(";needed")) {
-					tempKey = (String) key;
-					tempClass=plugins.get(key).toString().substring(0, plugins.get(key).toString().indexOf(";"));
-					o = this.getPlugin(tempKey);
+
+					if(this.canLaunch((String) key)) {
+						o = this.getPlugin((String) key);
+					} else {
+						ErrorPlug error = (ErrorPlug) this.getPlugin("Error");
+						error.showError("L'application " + (String) key + " ne possède pas les interfaces nécéssaires à sont lancement.");
+					}
 				}
 			}
+			return plugins;
 		} catch (Exception e) {
 			ErrorPlug error = (ErrorPlug) this.getPlugin("Error");
 			error.showError("Erreur lors du chargement du fichier plugin.txt.");
+			e.printStackTrace();
 		}
-		return plugins;
+		return null;
 	}
 	
 	public Object getPlugin(String key) {
@@ -99,9 +81,29 @@ public class Platform {
 				plugin = this.plugInstanciates.get(key);
 			}
 		} catch (Exception e) {
-			ErrorPlug error = (ErrorPlug) this.getPlugin("Error");
+			ErrorPlug error = new ErrorPlug();
 			error.showError("Problème lors du chargement du plugin " + key);
 		}
 		return plugin;
+	}
+	
+	private boolean canLaunch(String plug) {
+		if(!plugins.containsKey(plug + ".need")) {
+			return true;
+		}
+		
+		boolean contains = true;
+		String[] interfacesNeeded = ((String) plugins.get(plug + ".need")).split(";");
+
+		for(String interf : interfacesNeeded) {
+			boolean current = false;
+			for(Object key : plugins.keySet()) {
+				if(!key.toString().contains(".need") && plugins.get(key).toString().contains(interf)) {
+					current = true;
+				}
+			}
+			contains &= current;
+		}
+		return contains;
 	}
 }
