@@ -36,6 +36,7 @@ public class Window extends JFrame {
 	 * @param platform 
 	 */
 	public Window(Properties properties) {
+		this.properties = properties;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 450);
 		
@@ -114,7 +115,7 @@ public class Window extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
-		this.setContentPane(contentPane);
+		this.getContentPane().add(contentPane);
 		
 		// Panel 2, contenant l'image et les boutons
 		JPanel panel = new Panel();

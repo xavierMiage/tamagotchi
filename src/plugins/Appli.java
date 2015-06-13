@@ -91,7 +91,7 @@ public class Appli {
 	public void newGame(int espece) {
 		Tamagotchi tama = (Tamagotchi) Platform.getInstance().getPlugin("Tamagotchi");
 		tama.setEspece(espece);
-		((Window) Platform.getInstance().getPlugin("LoadUI")).showGame();
+		((LoadUI) Platform.getInstance().getPlugin("LoadUI")).updUI();
 	}
 	
 	public void choixEspece() {
