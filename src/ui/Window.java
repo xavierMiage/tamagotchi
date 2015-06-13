@@ -28,6 +28,7 @@ import core.Platform;
 public class Window extends JFrame {
 
 	private JPanel contentPane;
+	private Properties properties;
 
 	/**
 	 * Create the frame.
@@ -78,7 +79,7 @@ public class Window extends JFrame {
         eMenuItemNew.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                Platform.getInstance().getPlugin("NewTamagotchi");
+                ((Appli)Platform.getInstance().getPlugin("JeuTamagotchi")).choixEspece();
             }
         });
 
@@ -106,13 +107,14 @@ public class Window extends JFrame {
 		}*/
 	}
 	
-	/*public void showGame() {
+	// TODO : Fenêtre de démarrage
+	public void showGame() {
 		
         // Panel 1, contenu de la fenêtre
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		this.setContentPane(contentPane);
 		
 		// Panel 2, contenant l'image et les boutons
 		JPanel panel = new Panel();
@@ -128,7 +130,7 @@ public class Window extends JFrame {
 				}
 			});
 		}
-	}*/
+	}
 	
 	public Window() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

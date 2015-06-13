@@ -11,6 +11,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import javax.swing.JDialog;
+
+import ui.ChoixEspece;
+import ui.Window;
 import core.NombreNonValideException;
 import core.Platform;
 
@@ -54,7 +58,7 @@ public class Appli {
 		}
 	}
 	
-	public void save(){
+	public void save() {
 		Tamagotchi tama = (Tamagotchi) Platform.getInstance().getPlugin("Tamagotchi");
 		
 		Map<String, Object> objectAsMap = new HashMap<String, Object>();
@@ -81,5 +85,22 @@ public class Appli {
 			error.showError(e.getMessage());
 		}
 	    
+	}
+	
+	// TODO : Fenêtre de démarrage
+	public void newGame(int espece) {
+		Tamagotchi tama = (Tamagotchi) Platform.getInstance().getPlugin("Tamagotchi");
+		tama.setEspece(espece);
+		((Window) Platform.getInstance().getPlugin("LoadUI")).showGame();
+	}
+	
+	public void choixEspece() {
+		try {
+			ChoixEspece dialog = new ChoixEspece();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
