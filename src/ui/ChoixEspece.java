@@ -20,7 +20,7 @@ public class ChoixEspece extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ChoixEspece() {
+	public ChoixEspece(Appli app) {
 		setBounds(100, 100, 450, 81);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
@@ -32,7 +32,7 @@ public class ChoixEspece extends JDialog {
 			btnDragon.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent event) {
-	            	((Appli) Platform.getInstance().getPlugin("JeuTamagotchi")).newGame(1);
+	            	app.newGame(1);
 	            }
 	        });
 		}
@@ -42,7 +42,7 @@ public class ChoixEspece extends JDialog {
 			btnLicorne.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent event) {
-	            	((Appli) Platform.getInstance().getPlugin("JeuTamagotchi")).newGame(2);
+	            	app.newGame(2);
 	            }
 	        });
 		}

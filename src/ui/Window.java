@@ -1,6 +1,8 @@
 package ui;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,13 +14,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Properties;
 
 import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+import javax.swing.JProgressBar;
 
 import plugins.Appli;
+import plugins.Tamagotchi;
 import core.Platform;
 
 /*
@@ -29,14 +34,17 @@ public class Window extends JFrame {
 
 	private JPanel contentPane;
 	private Properties properties;
+	private Appli app;
+	private PanelDragon panel;
 
 	/**
 	 * Create the frame.
 	 * @param properties 
 	 * @param platform 
 	 */
-	public Window(Properties properties) {
+	public Window(Properties properties, Appli app) {
 		this.properties = properties;
+		this.app = app;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 450);
 		
@@ -68,7 +76,7 @@ public class Window extends JFrame {
         eMenuItemSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-				((Appli)Platform.getInstance().getPlugin("JeuTamagotchi")).save();
+				app.save();
             }
         });
 
@@ -80,45 +88,32 @@ public class Window extends JFrame {
         eMenuItemNew.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                ((Appli)Platform.getInstance().getPlugin("JeuTamagotchi")).choixEspece();
+                app.choixEspece();
             }
         });
 
         mnFile.add(eMenuItemNew);
-		
-        // Panel 1, contenu de la fenêtre
-		/*contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-		
-		// Panel 2, contenant l'image et les boutons
-		JPanel panel = new Panel();
-		contentPane.add(panel, BorderLayout.CENTER);
-		
-		// Chargement dynamique des boutons d'actions
-		for(Object key : properties.keySet()) {
-			JButton btn = new JButton((String) key);
-			panel.add(btn);
-			btn.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-	                ((Appli) Platform.getInstance().getPlugin("JeuTamagotchi")).soccuper(properties.get(key).toString());
-				}
-			});
-		}*/
-	}
-	
-	// TODO : Fenêtre de démarrage
-	public void showGame() {
+        
+
 		
         // Panel 1, contenu de la fenêtre
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		this.getContentPane().add(contentPane);
-		
+	}
+	
+	public void showGame(Tamagotchi tama) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		JPanel panel;
+		contentPane.removeAll();
+		contentPane.revalidate();
+		contentPane.repaint();
 		// Panel 2, contenant l'image et les boutons
-		JPanel panel = new Panel();
+		if(tama.getEspece() == 2)
+			 panel = new PanelLicorne();
+		else
+			panel = new PanelDragon();
+
 		contentPane.add(panel, BorderLayout.CENTER);
 		
 		// Chargement dynamique des boutons d'actions
@@ -127,10 +122,28 @@ public class Window extends JFrame {
 			panel.add(btn);
 			btn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-	                ((Appli) Platform.getInstance().getPlugin("JeuTamagotchi")).soccuper(properties.get(key).toString());
+	                app.soccuper(properties.get(key).toString());
 				}
 			});
+			String[] conf = properties.get(key).toString().split(";");
+			JProgressBar progressBar = new JProgressBar();
+			progressBar.setMaximum(100);
+			Method m = tama.getClass().getMethod("get" + conf[0]);
+			int val = (int) m.invoke(tama);
+			progressBar.setValue(val);
+			progressBar.setStringPainted(true);
+			panel.add(progressBar, BorderLayout.PAGE_END);
 		}
+		
+		/*JProgressBar progressBar = new JProgressBar();
+		progressBar.setMaximum(100);
+		progressBar.setValue(tama.getFaim());
+		progressBar.setStringPainted(true);
+		panel.add(progressBar, BorderLayout.PAGE_END);
+		//panel.add(pa, BorderLayout.SOUTH);*/
+		
+		contentPane.revalidate();
+		contentPane.repaint();
 	}
 	
 	public Window() {
@@ -186,7 +199,7 @@ public class Window extends JFrame {
 		setContentPane(contentPane);
 		
 		// Panel 2, contenant l'image et les boutons
-		JPanel panel = new Panel();
+		JPanel panel = new PanelLicorne();
 		contentPane.add(panel, BorderLayout.CENTER);
 		
 		JButton btnNourrir = new JButton("Nourrir");

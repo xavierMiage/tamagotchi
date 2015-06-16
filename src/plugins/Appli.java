@@ -20,13 +20,17 @@ import core.Platform;
 
 public class Appli {
 	
+	private Window gameUi;
+	
 	public Appli() {
 		System.out.println("Appli loadée");
 		LoadConfig confPlug = (LoadConfig) Platform.getInstance().getPlugin("LoadConfig");
 		try {
 			Properties conf = confPlug.loadData();
-			LoadUI uiPlug = (LoadUI) Platform.getInstance().getPlugin("LoadUI");
-			uiPlug.loadUI(conf);
+			//LoadUI uiPlug = (LoadUI) Platform.getInstance().getPlugin("LoadUI");
+			//uiPlug.loadUI(conf);
+			this.gameUi = new Window(conf, this);
+			this.gameUi.setVisible(true);
 		} catch (Exception e) {
 			System.out.println("Erreur lors du chargement de la configuration.");
 		}
@@ -37,6 +41,7 @@ public class Appli {
 		Tamagotchi tama = (Tamagotchi) Platform.getInstance().getPlugin("Tamagotchi");
 		try {
 			soccuper.soccuper(action, tama);
+			this.newGame(tama.getEspece());
 		} catch (SecurityException e) {
 			ErrorPlug error = (ErrorPlug) Platform.getInstance().getPlugin("Error");
 			error.showError(e.getMessage());
@@ -91,12 +96,20 @@ public class Appli {
 	public void newGame(int espece) {
 		Tamagotchi tama = (Tamagotchi) Platform.getInstance().getPlugin("Tamagotchi");
 		tama.setEspece(espece);
-		((LoadUI) Platform.getInstance().getPlugin("LoadUI")).updUI();
+		
+		try {
+			this.gameUi.showGame(tama);
+		} catch (NoSuchMethodException | SecurityException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			((ErrorPlug)Platform.getInstance().getPlugin("Error")).showError(e.getMessage());;
+		}
 	}
 	
 	public void choixEspece() {
 		try {
-			ChoixEspece dialog = new ChoixEspece();
+			ChoixEspece dialog = new ChoixEspece(this);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
