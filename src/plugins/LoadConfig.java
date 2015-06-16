@@ -14,10 +14,4 @@ public class LoadConfig implements IProducer {
 		return config;
 	}
 
-	@Override
-	public void loadUI(Properties p) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

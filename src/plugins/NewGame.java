@@ -11,11 +11,4 @@ public class NewGame implements IProducer {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public void loadUI(Properties p) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
