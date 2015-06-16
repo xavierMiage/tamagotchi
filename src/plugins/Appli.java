@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.Timer;
 
 import javax.swing.JDialog;
 
@@ -102,8 +103,7 @@ public class Appli {
 		} catch (NoSuchMethodException | SecurityException
 				| IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			((ErrorPlug)Platform.getInstance().getPlugin("Error")).showError(e.getMessage());;
+			((ErrorPlug)Platform.getInstance().getPlugin("Error")).showError(e.getMessage());
 		}
 	}
 	
@@ -115,5 +115,18 @@ public class Appli {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void timer(String attr, String val) {
+		Tamagotchi tama = (Tamagotchi) Platform.getInstance().getPlugin("Tamagotchi");
+		Method m;
+		
+		Timer t = new Timer();
+		TimerTamagotchi tt = new TimerTamagotchi();
+		tt.setTama(tama);
+		tt.setVal(Integer.parseInt(val));
+		tt.setApp(this);
+		tt.setAttr(attr);
+		t.schedule(tt, 1000);
 	}
 }

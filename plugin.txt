@@ -2,7 +2,6 @@
 JeuTamagotchi=plugins.Appli;needed
 JeuTamagotchi.need=interfaces.IProducer;interfaces.ITamagotchi;interfaces.IAction;interfaces.IExport;
 NewGame=plugins.NewGame;interfaces.IProducer
-LoadUI=plugins.LoadUI;interfaces.IProducer
 LoadConfig=plugins.LoadConfig;interfaces.IProducer
 Tamagotchi=plugins.Tamagotchi;interfaces.ITamagotchi
 Soccuper=plugins.Soccuper;interfaces.IAction

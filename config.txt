@@ -1,2 +1,2 @@
-Nourrir=Faim;+25
+Nourrir=Faim;+25;5
 Laver=Propre;+10

@@ -21,6 +21,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JProgressBar;
+import javax.swing.Timer;
 
 import plugins.Appli;
 import plugins.Tamagotchi;
@@ -125,22 +126,24 @@ public class Window extends JFrame {
 	                app.soccuper(properties.get(key).toString());
 				}
 			});
+			
 			String[] conf = properties.get(key).toString().split(";");
+			
 			JProgressBar progressBar = new JProgressBar();
 			progressBar.setMaximum(100);
+			
 			Method m = tama.getClass().getMethod("get" + conf[0]);
 			int val = (int) m.invoke(tama);
 			progressBar.setValue(val);
 			progressBar.setStringPainted(true);
+			
 			panel.add(progressBar, BorderLayout.PAGE_END);
+			
+			
+			// Timeur -- Test
+			//if(conf.length >= 2)
+			//	app.timer(conf[0], conf[2]);
 		}
-		
-		/*JProgressBar progressBar = new JProgressBar();
-		progressBar.setMaximum(100);
-		progressBar.setValue(tama.getFaim());
-		progressBar.setStringPainted(true);
-		panel.add(progressBar, BorderLayout.PAGE_END);
-		//panel.add(pa, BorderLayout.SOUTH);*/
 		
 		contentPane.revalidate();
 		contentPane.repaint();
