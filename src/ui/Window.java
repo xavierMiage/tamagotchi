@@ -47,7 +47,7 @@ public class Window extends JFrame {
 		this.properties = properties;
 		this.app = app;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 450);
+		setBounds(100, 100, 700, 500);
 		
 		// Bar de menu
 		JMenuBar menuBar = new JMenuBar();

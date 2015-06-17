@@ -27,7 +27,7 @@ public class PanelLicorne extends JPanel {
 		      //g.drawImage(img, 0, 0, this);
 
 		      //Pour une image de fond
-		      g.drawImage(img, 0, 0, this.getWidth(), (int) (this.getHeight() * 0.9), this);
+		      g.drawImage(img, 30, 50, 600, 350, this);
 
 		    } catch (IOException e) {
 
