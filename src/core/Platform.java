@@ -7,7 +7,7 @@ import java.util.Properties;
 import plugins.ErrorPlug;
 
 /*
- * Classe g√©rant les plugins
+ * Classe gÈrant les plugins
  */
 public class Platform {
 
@@ -20,7 +20,7 @@ public class Platform {
 	
 	private Platform() {}
 	 
-	/** Point d'acc√®s pour l'instance unique du singleton */
+	/** Point d'accËs pour l'instance unique du singleton */
 	public static Platform getInstance()
 	{			
 		if (INSTANCE == null)
@@ -48,7 +48,7 @@ public class Platform {
 						o = this.getPlugin((String) key);
 					} else {
 						ErrorPlug error = (ErrorPlug) this.getPlugin("Error");
-						error.showError("L'application " + (String) key + " ne poss√®de pas les interfaces n√©c√©ssaires √† sont lancement.");
+						error.showError("L'application " + (String) key + " ne possËde pas les interfaces nÈcessaires ‡ sont lancement.");
 					}
 				}
 			}

@@ -19,22 +19,21 @@ public class Soccuper implements IAction{
 		Method m2 = game.getClass().getMethod("set" + conf[0], int.class);
 		
 		int val = oldVal;
-		if(conf[1].contains("+")) {
-			val = Integer.parseInt(conf[1].replace("+", ""));
-			val += oldVal;
-		}
-		else {
-			val = Integer.parseInt(conf[1].replace("-", ""));
-			val -= oldVal;
-		}
-		
-		if(val <= 100) {
-			m2.invoke(game, val);
-		}
-		else {
-			throw new NombreNonValideException("Le niveau ne peut pas être supérieur a 100%.");
+		if (oldVal < 100){
+			if(conf[1].contains("+")) {
+				val = Integer.parseInt(conf[1].replace("+", ""));
+				val += oldVal;
+			}
+			else {
+				val = Integer.parseInt(conf[1].replace("-", ""));
+				val -= oldVal;
+			}
 		}
 		
+		if(val > 100) {	
+			val = 100;
+		}
+		m2.invoke(game, val);
 		int test = (int) m.invoke(game);
 		
 		System.out.println(test);
