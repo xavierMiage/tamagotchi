@@ -7,3 +7,4 @@ Tamagotchi=plugins.Tamagotchi;interfaces.ITamagotchi
 Soccuper=plugins.Soccuper;interfaces.IAction
 Error=plugins.ErrorPlug;interfaces.IErrorPlug
 SaveGame=plugins.SaveGame;interfaces.IExport
+LoadGame=plugins.LoadGame;interfaces.IProducer

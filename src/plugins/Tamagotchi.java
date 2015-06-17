@@ -16,7 +16,7 @@ public class Tamagotchi implements ITamagotchi {
 	 * @see plugins.ITamagochi#isContent()
 	 */
 	@Override
-	public boolean isContent() {
+	public boolean getContent() {
 		return content;
 	}
 	/* (non-Javadoc)
@@ -86,7 +86,7 @@ public class Tamagotchi implements ITamagotchi {
 	 * @see plugins.ITamagochi#isSexe()
 	 */
 	@Override
-	public boolean isSexe() {
+	public boolean getSexe() {
 		return sexe;
 	}
 	/* (non-Javadoc)

@@ -1,6 +1,6 @@
 #Jeux tamagotchi
-#Thu Jun 11 20:28:05 CEST 2015
-faim=40
+#Wed Jun 17 21:44:13 CEST 2015
+faim=65
 nom=Test
 espece=1
 sexe=true

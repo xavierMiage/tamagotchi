@@ -65,7 +65,7 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent event) {
             	// TODO : Je ne sais pas si on a le droit d'appeler le plugin appli à partir d'ici
-                Platform.getInstance().getPlugin("LoadTamagotchi");
+                app.loadGame();
             }
         });
 

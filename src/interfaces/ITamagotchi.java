@@ -2,7 +2,7 @@ package interfaces;
 
 public interface ITamagotchi {
 
-	public abstract boolean isContent();
+	public abstract boolean getContent();
 
 	public abstract void setContent(boolean content);
 
@@ -22,7 +22,7 @@ public interface ITamagotchi {
 
 	public abstract void setNom(String nom);
 
-	public abstract boolean isSexe();
+	public abstract boolean getSexe();
 
 	public abstract void setSexe(boolean sexe);
 

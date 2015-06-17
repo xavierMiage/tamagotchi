@@ -113,7 +113,7 @@ public class Appli {
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
-			e.printStackTrace();
+			((ErrorPlug)Platform.getInstance().getPlugin("Error")).showError(e.getMessage());
 		}
 	}
 	
@@ -128,5 +128,33 @@ public class Appli {
 		tt.setApp(this);
 		tt.setAttr(attr);
 		t.schedule(tt, 1000);
+	}
+	
+	public void loadGame(){
+		try {
+			Properties data = ((LoadGame) Platform.getInstance().getPlugin("LoadGame")).loadData();
+			Tamagotchi tama = (Tamagotchi) Platform.getInstance().getPlugin("Tamagotchi");
+	        
+			for (Object key : data.keySet()) {
+				Method mG = tama.getClass().getMethod("get"+((String) key).replaceFirst(".",(((String) key).charAt(0)+"").toUpperCase()));
+		        Method m = tama.getClass().getMethod("set"+((String) key).replaceFirst(".",(((String) key).charAt(0)+"").toUpperCase()), mG.getReturnType());
+		    
+		        String mesTypes = mG.getReturnType().getTypeName();
+		        switch (mesTypes) {
+		        	case "int": 
+		        		m.invoke(tama, Integer.parseInt(data.get(key).toString()));
+		        		break;
+		        	case "boolean":
+		        		m.invoke(tama, Boolean.parseBoolean(data.get(key).toString()));
+		        		break;
+		        	default :
+		        		m.invoke(tama, data.get(key).toString());
+		        }
+		    }
+			this.gameUi.showGame(tama);
+		} catch (Exception e) {
+			e.printStackTrace();
+			((ErrorPlug)Platform.getInstance().getPlugin("Error")).showError(e.getMessage());
+		}
 	}
 }
