@@ -6,8 +6,9 @@ import java.util.Properties;
 
 import plugins.ErrorPlug;
 
+
 /*
- * Classe g�rant les plugins
+ * Classe gerant les plugins
  */
 public class Platform {
 
@@ -39,13 +40,11 @@ public class Platform {
 				plugins.put("Error", "plugins.ErrorPlug;interfaces.IError");
 			}
 			
-			Class<?> clazz;
-			Object o;
 			for(Object key : plugins.keySet()) {
 				if(plugins.get(key).toString().contains(";needed")) {
 
 					if(this.canLaunch((String) key)) {
-						o = this.getPlugin((String) key);
+						this.getPlugin((String) key);
 					} else {
 						ErrorPlug error = (ErrorPlug) this.getPlugin("Error");
 						error.showError("L'application " + (String) key + " ne poss�de pas les interfaces n�cessaires � sont lancement.");
