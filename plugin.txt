@@ -1,4 +1,4 @@
-#Nom choisi=Classe du plugin;Chargement au lancement;Interface du plugin
+#Clé=Classe du plugin;Chargement au lancement;Interface du plugin
 JeuTamagotchi=plugins.Appli;needed
 JeuTamagotchi.need=interfaces.IProducer;interfaces.ITamagotchi;interfaces.IAction;interfaces.IExport;
 NewGame=plugins.NewGame;interfaces.IProducer

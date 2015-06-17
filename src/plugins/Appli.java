@@ -42,7 +42,7 @@ public class Appli {
 		Tamagotchi tama = (Tamagotchi) Platform.getInstance().getPlugin("Tamagotchi");
 		try {
 			soccuper.soccuper(action, tama);
-			this.newGame(tama.getEspece());
+			this.gameUi.showGame(tama);
 		} catch (SecurityException e) {
 			ErrorPlug error = (ErrorPlug) Platform.getInstance().getPlugin("Error");
 			error.showError(e.getMessage());
