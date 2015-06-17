@@ -24,7 +24,7 @@ public class Appli {
 	private Window gameUi;
 	
 	public Appli() {
-		System.out.println("Appli loadée");
+		System.out.println("Appli loadï¿½e");
 		LoadConfig confPlug = (LoadConfig) Platform.getInstance().getPlugin("LoadConfig");
 		try {
 			Properties conf = confPlug.loadData();
@@ -93,9 +93,9 @@ public class Appli {
 	    
 	}
 	
-	// TODO : Fenêtre de démarrage
+	// TODO : Fenï¿½tre de dï¿½marrage
 	public void newGame(int espece) {
-		Tamagotchi tama = (Tamagotchi) Platform.getInstance().getPlugin("Tamagotchi");
+		Tamagotchi tama = (Tamagotchi) Platform.getInstance().getPluginNew("Tamagotchi");
 		tama.setEspece(espece);
 		
 		try {

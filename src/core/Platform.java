@@ -7,7 +7,7 @@ import java.util.Properties;
 import plugins.ErrorPlug;
 
 /*
- * Classe gérant les plugins
+ * Classe gï¿½rant les plugins
  */
 public class Platform {
 
@@ -20,7 +20,7 @@ public class Platform {
 	
 	private Platform() {}
 	 
-	/** Point d'accès pour l'instance unique du singleton */
+	/** Point d'accï¿½s pour l'instance unique du singleton */
 	public static Platform getInstance()
 	{			
 		if (INSTANCE == null)
@@ -48,7 +48,7 @@ public class Platform {
 						o = this.getPlugin((String) key);
 					} else {
 						ErrorPlug error = (ErrorPlug) this.getPlugin("Error");
-						error.showError("L'application " + (String) key + " ne possède pas les interfaces nécessaires à sont lancement.");
+						error.showError("L'application " + (String) key + " ne possï¿½de pas les interfaces nï¿½cessaires ï¿½ sont lancement.");
 					}
 				}
 			}
@@ -80,6 +80,27 @@ public class Platform {
 			else {
 				plugin = this.plugInstanciates.get(key);
 			}
+		} catch (Exception e) {
+			ErrorPlug error = new ErrorPlug();
+			error.showError("ProblÃ¨me lors du chargement du plugin " + key);
+		}
+		return plugin;
+	}
+	
+	public Object getPluginNew(String key) {
+		Class<?> clazz;
+		Object plugin = null;
+		String name = null;
+		try {
+			if(this.plugins.get(key).toString().contains(";")) {
+				name = (String) this.plugins.get(key).toString().substring(0, plugins.get(key).toString().indexOf(";"));
+			}
+			else {
+				name = (String) this.plugins.get(key).toString();
+			}
+			clazz = Class.forName(name);
+			plugin = clazz.newInstance();
+			this.plugInstanciates.put(key, plugin);
 		} catch (Exception e) {
 			ErrorPlug error = new ErrorPlug();
 			error.showError("ProblÃ¨me lors du chargement du plugin " + key);
